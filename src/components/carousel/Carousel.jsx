@@ -2,21 +2,30 @@ import { motion, AnimatePresence } from "framer-motion";
 import carouselData from "./carouselData";
 import { useState } from "react";
 import clsx from "clsx";
-import Auth from "../../firebase.config";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Container from "../atomic/atoms/Container";
+
+
 
 export function CarouselCustomNavigation() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isNextSlide, setIsNextSlide] = useState(false)
+  const navigate = useNavigate()
 
+  //move to next slide
   const nextSlide = () => {
-    setCurrentSlide((prevSlide) => (prevSlide + 1) % carouselData.length);
-    console.log(currentSlide);
-  };
 
-  if (currentSlide ==2) {
-    return <Navigate to="/sign-up" />
-  }
+    if (currentSlide === carouselData.length - 1) {
+      //if its the last slide and not clicked before, set the state
+      if (!isNextSlide) {
+        setIsNextSlide(true);
+      } else {
+        navigate('/sign-up');
+      }
+    } else {
+      setCurrentSlide((prevSlide) => prevSlide + 1);
+    }
+  };
 
   return (
     <Container variant="contain">
@@ -29,8 +38,8 @@ export function CarouselCustomNavigation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <Container className="flex items-center h-fit gap-[30px]">
-              <div className="w-[600px] h-[600px]">
+            <Container variant="flexed">
+              <div className="md:w-[600px] md:h-fit md:mt-0">
                 {" "}
                 <img
                   className="w-[100%] h-[100%] object-contain"
@@ -38,16 +47,16 @@ export function CarouselCustomNavigation() {
                   alt="carousel"
                 />{" "}
               </div>
-              <div>
-                <p className="txt-lg">{carouselData[currentSlide].content.text.header}</p>
-                <p className="txt-md text-blackPrimary">{carouselData[currentSlide].content.text.subheader}</p>
+              <div className="md:mt-0 sm:mt-[20%] mt-[40%]">
+                <p className="lg:text-[65px] md:text-[45px] sm:text-[40px] text-[30px] font-bold">{carouselData[currentSlide].content.text.header}</p>
+                <p className="lg:text-[40px] md:text-[30px] sm:text-[25px] text-[23px] text-blackPrimary">{carouselData[currentSlide].content.text.subheader}</p>
               </div>
             </Container>
           </motion.div>
         </AnimatePresence>
 
         {/* indicator */}
-        <div className="indicators-container flex content-center mt-[10px]">
+        <div className="indicators-container flex content-center md:mt-[100px] mt-[20px]">
           {carouselData.map((slide, index) => (
             <div
               key={slide.id}

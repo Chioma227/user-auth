@@ -2,10 +2,10 @@ import clsx from "clsx";
 import React from "react";
 
 const Container = ({ children, variant, className, ...restProps }) => {
-  let style = "flex items-center justfy-center w-[100%]";
+  let style = "flex md:items-center md:flex-row flex-col h-fit md:gap-[30px] ";
   switch (variant) {
     case "contain":
-      className = "w-100% px-[50px]";
+      className = "w-100% sm:px-[50px] px-[20px] pt-[30px]";
       break;
     case "fitted":
       className = "w-fit px-[30px]";

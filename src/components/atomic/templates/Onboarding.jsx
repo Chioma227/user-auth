@@ -1,6 +1,5 @@
 import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { OnBoardLoader } from "../atoms/loader/Loader";
 import onBoardImg from "../../../assets/imgs/Frame 1.png";
 
 const Onboarding = () => {
@@ -23,9 +22,6 @@ const Onboarding = () => {
       ) : (
         <div className=" onboarding bg-redSecondary">
           <img src={onBoardImg} alt="onBoarding" width={500} height={500} />
-          <div>
-            <OnBoardLoader />
-          </div>
         </div>
       )}
     </div>
