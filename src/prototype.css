@@ -1,0 +1,21 @@
+.txt-lg {
+  font-size: 65px;
+  font-weight: bolder;
+}
+.txt-md {
+  font-size: 40px;
+  font-weight: lighter;
+}
+.txt-md-bold {
+  font-size: 40px;
+  font-weight: bold;
+}
+.txt-sm {
+  font-size: 14px;
+}
+.txt-s {
+  font-size: 13px;
+}
+.txt-xs {
+  font-size: 9px;
+}
