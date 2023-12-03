@@ -10,7 +10,6 @@ import Image from "./components/atomic/atoms/Image";
 function App() {
   return (
     <div>
-
       <Routes>
         <Route exact path="/" Component={Onboarding} />
         <Route exact path="/redirect" Component={ShouldRenderLoginPage} />
@@ -20,6 +19,8 @@ function App() {
         <Route exact path="/verify-email" Component={Redirect} />
       </Routes>
       {/* <ProtectedRoute path="/dashboard" element={Welcome} /> */}
+
+      {/* todo: delete on next visit */}
     </div>
   );
 }
