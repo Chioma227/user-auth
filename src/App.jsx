@@ -19,8 +19,6 @@ function App() {
         <Route exact path="/verify-email" Component={Redirect} />
       </Routes>
       {/* <ProtectedRoute path="/dashboard" element={Welcome} /> */}
-
-      {/* todo: delete on next visit */}
     </div>
   );
 }
