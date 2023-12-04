@@ -18,7 +18,7 @@ const Onboarding = () => {
   return (
     <div>
       {transition ? (
-        <Navigate to="/redirect" />
+        <Navigate to="/carousel" />
       ) : (
         <div className=" onboarding bg-redSecondary">
           <img src={onBoardImg} alt="onBoarding" width={500} height={500} />
