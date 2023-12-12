@@ -5,7 +5,7 @@ const Container = ({ children, variant, className, ...restProps }) => {
   let style = "flex md:items-center md:flex-row flex-col h-fit md:gap-[30px] ";
   switch (variant) {
     case "contain":
-      className = "w-100% sm:px-[50px] px-[20px] pt-[30px]";
+      className = "w-100% sm:px-[50px] px-[20px] sm:py-[40px] py-[20px] h-[100vh]";
       break;
     case "fitted":
       className = "w-fit px-[30px]";

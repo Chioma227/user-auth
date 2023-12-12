@@ -29,7 +29,7 @@ export function CarouselCustomNavigation() {
 
   return (
     <Container variant="contain">
-      <div className="carousel-container relative">
+      <main className="carousel-container relative h-[100%]">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={currentSlide}
@@ -47,7 +47,7 @@ export function CarouselCustomNavigation() {
                   alt="carousel"
                 />{" "}
               </div>
-              <div className="md:mt-0 sm:mt-[20%] mt-[40%]">
+              <div className={`md:mt-0 sm:mt-[20%]  ${carouselData[currentSlide === 1] ? "mt-[10%]" : "mt-[40%]"}`}>
                 <p className="lg:text-[65px] md:text-[45px] sm:text-[40px] text-[30px] font-bold">{carouselData[currentSlide].content.text.header}</p>
                 <p className="lg:text-[40px] md:text-[30px] sm:text-[25px] text-[23px] text-blackPrimary">{carouselData[currentSlide].content.text.subheader}</p>
               </div>
@@ -56,28 +56,30 @@ export function CarouselCustomNavigation() {
         </AnimatePresence>
 
         {/* indicator */}
-        <div className="indicators-container flex content-center md:mt-[100px] mt-[20px]">
-          {carouselData.map((slide, index) => (
-            <div
-              key={slide.id}
-              className={clsx(
-                `${index === currentSlide ? "bg-redSecondary" : "bg-redPrimary"}`,
-                "cursor-pointer w-[13px] h-[6px] rounded-[40%] ml-[3px] mr-[3px]"
-              )}
-              onClick={() => setCurrentSlide(index)}
-            />
-          ))}
-        </div>
+        <section className="absolute bottom-0 flex items-center justify-between w-[100%]">
+          <div className="indicators-container flex content-center">
+            {carouselData.map((slide, index) => (
+              <div
+                key={slide.id}
+                className={clsx(
+                  `${index === currentSlide ? "bg-redSecondary" : "bg-redPrimary"}`,
+                  "cursor-pointer w-[13px] h-[6px] rounded-[40%] ml-[3px] mr-[3px]"
+                )}
+                onClick={() => setCurrentSlide(index)}
+              />
+            ))}
+          </div>
 
-        <Container variant="flex-end">
-          <button
-            onClick={nextSlide}
-            className="text-white font-extrabold rounded-[50%] bg-blackSecondary w-[50px] h-[50px] border-none"
-          >
-            &gt;
-          </button>
-        </Container>
-      </div>
+          <Container variant="flex-end">
+            <button
+              onClick={nextSlide}
+              className="text-white font-extrabold rounded-[50%] bg-blackSecondary w-[50px] h-[50px] border-none"
+            >
+              &gt;
+            </button>
+          </Container>
+        </section>
+      </main>
     </Container>
   );
 }
