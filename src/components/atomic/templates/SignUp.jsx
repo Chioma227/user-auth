@@ -12,17 +12,16 @@ const SignUp = () => {
   const [name, setName] = useState("");
 
   const [email, setEmail] = useState("");
-  const [emailInfo, setEmailInfo] = useState("")
 
   const [password, setPassword] = useState("");
-  const [passwordInfo, setPasswordInfo] = useState("")
+
+  const [confirmPassword, setConfirmPassword] = useState("")
+
   const [passwordVisibility, setPasswordVisibility] = useState(false)
 
-  const [Phone, setPhone] = useState();
   const [loading, setLoading] = useState(false);
 
-  const [emailError, setEmailError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
+
 
   const handleSignIn = () => {
     setLoading(true);
@@ -33,7 +32,6 @@ const SignUp = () => {
       .then((userCredential) => {
         const user = userCredential.user;
         user.displayName = name;
-        console.log(`New User: ${user.displayName}`);
         setLoading(false);
         console.log(user);
       })
@@ -43,32 +41,6 @@ const SignUp = () => {
       });
   };
 
-  const emailOnChangeHandler = (e) => {
-    setEmail(e.target.value);
-
-    //validating email
-    const emailRegEx =
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/gi;
-
-    if (emailRegEx.test(e.target.value)) {
-      setEmailInfo("");
-    } else {
-      setEmailInfo("email should follow the pattern email@domain.extension");
-    }
-  };
-
-  const passwordOnChangeHandler = (e) => {
-    setPassword(e.target.value);
-
-    //validating password
-    const passwordRegEx = /^.{6,}$/gi;
-
-    if (passwordRegEx.test(e.target.value)) {
-      setPasswordInfo("");
-    } else {
-      setPasswordInfo("Password should be atleast 6 characters long");
-    }
-  };
 
   const visibilityOnClickHandler = (e) => {
     setPasswordVisibility((passwordVisibility) => {
@@ -117,99 +89,71 @@ const SignUp = () => {
 
 
   return (
-    // <main>
-    <Container variant="flexed">
-      <section>
-        <img width={400} height={400} src={getStarted} alt="getStarted" />
-        <h2 className="uppercase text-[80px] font-extrabold">get started</h2>
+    <Container variant="flexed" className="justify-around pt-[7%] w-[100%]">
+      <section className="relative w-[50%] ">
+        <img className="w-[500px] h-[500px]" src={getStarted} alt="getStarted" />
+        <h2 className="uppercase text-[70px] font-extrabold absolute top-[15rem] right-[23%]">get started</h2>
+        {/* <div>
+          <h1 className='text-center text-black font-bold mt-[-60%]'>By creating a fre account</h1>
+        </div> */}
       </section>
-
-      <section>
-         {/* <InputField
-          input={{
-            placeholder: "Email Address",
-            onChange: emailOnChangeHandler,
-          }}
-          rightIcon={{ src: "mail" }}
-          isError={emailError}
-          isInfo={Boolean(emailInfo)}
-          info={emailInfo}
-          variant="auth-input-field"
-        /> */}
-        {/* <InputField
-          input={{
-            placeholder: "enter phone number",
-            type: "number",
-            onChange: (e) => setPhone(e.target.value),
-          }}
-          rightIcon={{ src: "phone" }}
-          isError={emailError}
-          isInfo={Boolean(emailInfo)}
-          info={emailInfo}
-          variant="auth-input-field"
-        /> */}
-        {/* <InputField
-          input={{
-            placeholder: "Enter Password",
-            type: passwordVisibility ? "text" : "password",
-            onChange: passwordOnChangeHandler,
-          }}
-          rightIcon={{
-            // src: passwordVisibility ? "Hide" : "Show",
-            onClick: visibilityOnClickHandler,
-            // className: "cursor-pointer",
-          }}
-          isError={emailError}
-          isInfo={Boolean(emailInfo)}
-          info={emailInfo}
-          variant="auth-input-field"
-        />  */}
-        {/* <input
-          className=" border-emerald-500 border-2"
-          type="text"
-          value={name}
-          required
-          placeholder="name"
-          onChange={(e) => setName(e.target.value)}
-        /> */}
-        <input
-          className=" border-emerald-500 border-2"
-          type="email"
-          required
-          value={email}
-          placeholder="email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          className=" border-emerald-500 border-2"
-          type="text"
-          value={password}
-          required
-          placeholder="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {/* <input
-          className=" border-emerald-500 border-2"
-          type="text"
-          value={confirmPassword}
-          required
-          placeholder="confirm password"
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        /> */}
-        <Button
-          variant="primary"
-          onClick={handleSignIn}
-          isLoading={loading}
-        >
-          sign-up
-        </Button>
+      <section className="w-[50%] border border-red-300 px-[20px]">
+        <form onSubmit={handleSignIn}>
+          <div>
+            <input
+              className=" border-emerald-500 border-2"
+              type="text"
+              value={name}
+              required
+              placeholder="name"
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div>
+            <input
+              className=" border-emerald-500 border-2"
+              type="email"
+              required
+              value={email}
+              placeholder="email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div>
+            <input
+              className=" border-emerald-500 border-2"
+              type="text"
+              value={password}
+              required
+              placeholder="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div>
+            <input
+              className=" border-emerald-500 border-2"
+              type="text"
+              value={confirmPassword}
+              required
+              placeholder="confirm password"
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </div>
+          <Button
+            type="submit"
+            variant="primary"
+            onClick={handleSignIn}
+            isLoading={loading}
+          >
+            sign-up
+          </Button>
+        </form>
 
         <div className="mt-[30px]">
           <p>Already have an account? <Link to="/sign-in"> sign in</Link></p>
         </div>
       </section>
     </Container>
-    // </main>
   );
 };
 
