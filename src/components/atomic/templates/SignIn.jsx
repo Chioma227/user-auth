@@ -6,6 +6,7 @@ import { useState } from "react";
 import Button from "../atoms/Button";
 import Container from "../atoms/Container";
 import { Navigate } from "react-router-dom";
+import { SuccessModal, ErrorModal } from "../molecules/modal/Modal";
 
 
 import Email from "../../../assets/icons/mail.svg"
@@ -19,21 +20,23 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [isLoggedIn, setIsLggedIn] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [passwordVisibility, setPasswordVisibility] = useState(false)
 
 
   const handleSignIn = (e) => {
+    // prevent default browser submit action
     e.preventDefault()
+
     const auth = Auth;
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
         if (user) {
+          setIsModalOpen(true)
           setIsLggedIn(true)
-          alert(` succesfully logged in ${user.email}`)
         }
-        // <Navigate to="/welcome"/>
         console.log(user);
         // ...
       })
@@ -52,7 +55,10 @@ const SignIn = () => {
 
   return (
     <>
-      {isLoggedIn ? <Navigate to="/welcome" /> : <Container variant="flexed" className=" h-screen pt-[7%] w-[100%] px-[6%]">
+      {isLoggedIn ? <Navigate to="/welcome" /> : <Container variant="flexed" className="relative h-screen pt-[7%] w-[100%] px-[6%]">
+        {isModalOpen && <SuccessModal>
+          <div>Success</div>
+        </SuccessModal>}
         <div className="flex items-center justify-center">
           <img src={logInSvg} alt="welcome" className="lg:w-[600px] md:w-[450px] w-[400px] lg:h-[600px] object-contain md:ml-0 ml-[60px]" />
         </div>

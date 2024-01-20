@@ -5,6 +5,7 @@ import Auth from "../../../firebase.config";
 import { Navigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { ErrorModal, SuccessModal } from "../molecules/modal/Modal";
 
 // icons/imgs
 
@@ -29,6 +30,13 @@ const SignUp = () => {
 
   const [loading, setLoading] = useState(false);
 
+  const [isError, setIsError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("")
+
+  const [isSuccess, setIsSuccess] = useState(false)
+  const [successMessage, setSuccessMessage] = useState("")
+
+
 
 
   const handleSignIn = (e) => {
@@ -44,14 +52,16 @@ const SignUp = () => {
 
         if (user) {
           console.log(user);
-          // <Navigate to="/welcome"/>
+          setIsSuccess(true)
         }
         setLoading(false);
         console.log(user);
       })
       .catch((error) => {
+        setIsError(true)
         setLoading(false);
-        console.log(error);
+        console.log(error.message);
+        setErrorMessage(error.message)
       });
 
   };
@@ -62,7 +72,6 @@ const SignUp = () => {
       return !passwordVisibility;
     });
   };
-
 
 
   const inputSchema = [
@@ -86,7 +95,11 @@ const SignUp = () => {
 
 
   return (
-    <Container variant="flexed" className="md:justify-around pt-[7%] w-[100%] px-[6%]">
+    <Container variant="flexed" className="md:justify-around relative pt-[7%] w-screen px-[6%]">
+      {/* <ErrorModal>hello world</ErrorModal> */}
+     {isError&&
+      <ErrorModal onClick={()=>setIsError(!isError)}>{errorMessage}</ErrorModal>
+      }
       <section className="flex items-center justify-center">
         <img className="lg:w-[600px] md:w-[450px] w-[400px] lg:h-[600px] object-contain md:ml-0 ml-[60px]" src={getStarted} alt="getStarted" />
       </section>
