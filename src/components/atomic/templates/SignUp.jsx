@@ -1,12 +1,20 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import React, { useState, useEffect } from "react";
+import Button from "../atoms/Button";
+import { Link } from "react-router-dom";
+import Container from "../atoms/Container";
 import Auth from "../../../firebase.config";
 import { Navigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import InputField from "../molecules/InputField";
-import Button from "../atoms/Button";
-import getStarted from "../../../assets/imgs/getstared.png"
-import Container from "../atoms/Container";
+import React, { useState, useEffect } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+
+// icons/imgs
+
+import user from "../../../assets/icons/user.svg"
+import Email from "../../../assets/icons/mail.svg"
+import phone from "../../../assets/icons/phone.svg"
+import eyeOn from "../../../assets/icons/eyeOn.png"
+import eyeOff from "../../../assets/icons/eyeOff.png"
+import getStarted from "../../../assets/icons/getStarted.svg"
+
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -23,7 +31,8 @@ const SignUp = () => {
 
 
 
-  const handleSignIn = () => {
+  const handleSignIn = (e) => {
+    e.preventDefault()
     setLoading(true);
 
     //sign in user
@@ -32,6 +41,11 @@ const SignUp = () => {
       .then((userCredential) => {
         const user = userCredential.user;
         user.displayName = name;
+
+        if (user) {
+          console.log(user);
+          // <Navigate to="/welcome"/>
+        }
         setLoading(false);
         console.log(user);
       })
@@ -39,6 +53,7 @@ const SignUp = () => {
         setLoading(false);
         console.log(error);
       });
+
   };
 
 
@@ -49,24 +64,6 @@ const SignUp = () => {
   };
 
 
-  useEffect(() => {
-    const sendEmailVerification = async () => {
-      const user = Auth.currentUser;
-      if (user) {
-        <Navigate to="/verify-email" replace />
-        try {
-          await user.sendEmailVerification();
-          console.log('Verification email sent!');
-        } catch (error) {
-          console.error('Error sending verification email:', error.message);
-        }
-      } else {
-        console.error('User not authenticated or not found.');
-      }
-    };
-    sendEmailVerification();
-
-  }, []);
 
   const inputSchema = [
     {
@@ -89,68 +86,78 @@ const SignUp = () => {
 
 
   return (
-    <Container variant="flexed" className="justify-around pt-[7%] w-[100%]">
-      <section className="relative w-[50%] ">
-        <img className="w-[500px] h-[500px]" src={getStarted} alt="getStarted" />
-        <h2 className="uppercase text-[70px] font-extrabold absolute top-[15rem] right-[23%]">get started</h2>
-        {/* <div>
-          <h1 className='text-center text-black font-bold mt-[-60%]'>By creating a fre account</h1>
-        </div> */}
+    <Container variant="flexed" className="md:justify-around pt-[7%] w-[100%] px-[6%]">
+      <section className="flex items-center justify-center">
+        <img className="lg:w-[600px] md:w-[450px] w-[400px] lg:h-[600px] object-contain md:ml-0 ml-[60px]" src={getStarted} alt="getStarted" />
       </section>
-      <section className="w-[50%] border border-red-300 px-[20px]">
+      <section className="md:w-[50%] w-[100%] ">
         <form onSubmit={handleSignIn}>
-          <div>
+          <div className="relative mb-[15px]">
             <input
-              className=" border-emerald-500 border-2"
+              className="text-grey w-[100%] indent-[15px] bg-grey bg-opacity-25 placeholder:text-grey py-[10px] rounded-lg"
               type="text"
               value={name}
               required
               placeholder="name"
               onChange={(e) => setName(e.target.value)}
             />
+            <img src={user} alt="user-icon" className="absolute top-[9px] right-[10px]" />
           </div>
-          <div>
+          <div className="relative mb-[15px]">
             <input
-              className=" border-emerald-500 border-2"
+              className="text-grey w-[100%] indent-[15px] bg-grey bg-opacity-25 placeholder:text-grey py-[10px] rounded-lg"
               type="email"
               required
               value={email}
               placeholder="email"
               onChange={(e) => setEmail(e.target.value)}
             />
+            <img src={Email} alt="mail-icon" className="absolute top-[12px] right-[10px]" />
           </div>
-          <div>
+          <div className="relative mb-[15px]">
             <input
-              className=" border-emerald-500 border-2"
-              type="text"
-              value={password}
-              required
-              placeholder="password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <div>
-            <input
-              className=" border-emerald-500 border-2"
+              className="text-grey w-[100%] indent-[15px] bg-grey bg-opacity-25 placeholder:text-grey py-[10px] rounded-lg"
               type="text"
               value={confirmPassword}
               required
-              placeholder="confirm password"
+              placeholder="Phone number"
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
+            <img src={phone} alt="user" className="absolute top-[9px] right-[10px]" />
           </div>
+          <div className="relative mb-[15px]">
+            <input
+              className="text-grey w-[100%] indent-[15px] bg-grey bg-opacity-25 placeholder:text-grey py-[10px] rounded-lg"
+              type={passwordVisibility ? "text" : "password"}
+              value={password}
+              required
+              placeholder={passwordVisibility ? "password" : "********"}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <img src={passwordVisibility ? eyeOn : eyeOff} alt="phone-icon"
+              className="absolute top-[12px] right-[10px] w-[20px] h-[16px] cursor-pointer"
+              onClick={visibilityOnClickHandler}
+            />
+          </div>
+
           <Button
             type="submit"
             variant="primary"
             onClick={handleSignIn}
             isLoading={loading}
+            className="text-center flex items-center justify-center"
           >
-            sign-up
+            Next &gt;
           </Button>
         </form>
 
-        <div className="mt-[30px]">
-          <p>Already have an account? <Link to="/sign-in"> sign in</Link></p>
+        <div className="md:mt-[30px] mt-[10px] flex items-center justify-center">
+          <p className=" font-medium text-gray-400">
+            Already a member?
+            <Link to="/sign-in">
+              <span className="text-redSecondary underline"> Log in</span>
+            </Link>
+          </p>
         </div>
       </section>
     </Container>

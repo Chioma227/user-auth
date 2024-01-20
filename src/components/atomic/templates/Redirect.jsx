@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { CarouselCustomNavigation } from '../../carousel/Carousel';
 import SignIn from './SignIn';
 
-const ShouldRenderLoginPage = () => {
 
+
+const ShouldRenderLoginPage = () => {
   const [firstVisit, setFirstVisit] = useState(true);
 
   useEffect(() => {

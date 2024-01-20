@@ -13,7 +13,7 @@ const Button = (
 }) => {
   switch (variant) {
     case "primary":
-      className = "bg-redSecondary w-[40%] text-[70px] uppercase";
+      className = "bg-redSecondary hover:bg-redSecondaryD transition-all w-[100%] text-[20px] text-white py-[12px] rounded-lg";
       break;
     case "bordered":
       className = "border-2 border-blackSecondary w-[40%]";

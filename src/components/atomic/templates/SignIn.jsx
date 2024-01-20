@@ -3,18 +3,37 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import Auth from "../../../firebase.config";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import Image from "../atoms/Image";
+import Button from "../atoms/Button";
 import Container from "../atoms/Container";
+import { Navigate } from "react-router-dom";
+
+
+import Email from "../../../assets/icons/mail.svg"
+import eyeOn from "../../../assets/icons/eyeOn.png"
+import eyeOff from "../../../assets/icons/eyeOff.png"
+import logInSvg from "../../../assets/icons/welcome.svg"
+
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleSignIn = () => {
+  const [loading, setLoading] = useState(false);
+  const [isLoggedIn, setIsLggedIn] = useState(false)
+  const [passwordVisibility, setPasswordVisibility] = useState(false)
+
+
+  const handleSignIn = (e) => {
+    e.preventDefault()
     const auth = Auth;
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+        if (user) {
+          setIsLggedIn(true)
+          alert(` succesfully logged in ${user.email}`)
+        }
+        // <Navigate to="/welcome"/>
         console.log(user);
         // ...
       })
@@ -22,37 +41,73 @@ const SignIn = () => {
         console.log(error);
       });
   };
-  return (
-    <Container variant="contain">
-      <Container variant="flexed" className=" h-[100vh]">
-      <Image variant="normal">
-        <div className="txt-md-bold">
-          hello
-        </div>
-      </Image>
-      <Container variant="fitted">
-        <input
-          className=" border-emerald-500 border-2"
-          type="text"
-          value={email}
-          placeholder="email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          className=" border-emerald-500 border-2"
-          type="text"
-          value={password}
-          placeholder="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </Container>
-      <button onClick={handleSignIn}>signIn</button>
 
-      <div>
-        <p>Don't have an account yet, <Link to="/sign-up"> signup</Link></p>
-      </div>
+
+  const visibilityOnClickHandler = (e) => {
+    setPasswordVisibility((passwordVisibility) => {
+      return !passwordVisibility;
+    });
+  };
+
+
+  return (
+    <>
+      {isLoggedIn ? <Navigate to="/welcome" /> : <Container variant="flexed" className=" h-screen pt-[7%] w-[100%] px-[6%]">
+        <div className="flex items-center justify-center">
+          <img src={logInSvg} alt="welcome" className="lg:w-[600px] md:w-[450px] w-[400px] lg:h-[600px] object-contain md:ml-0 ml-[60px]" />
+        </div>
+
+        <section className="md:w-[50%] w-[100%] ">
+          <form onSubmit={handleSignIn}>
+            <div className="relative mb-[15px]">
+              <input
+                className="text-grey w-[100%] indent-[15px] bg-grey bg-opacity-25 placeholder:text-grey py-[10px] rounded-lg"
+                type="text"
+                value={email}
+                placeholder="email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <img src={Email} alt="mail-icon" className="absolute top-[12px] right-[10px]" />
+            </div>
+
+            <div className="relative mb-[15px]">
+              <input
+                className="text-grey w-[100%] indent-[15px] bg-grey bg-opacity-25 placeholder:text-grey py-[10px] rounded-lg"
+                type={passwordVisibility ? "text" : "password"}
+                value={password}
+                required
+                placeholder={passwordVisibility ? "password" : "********"}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <img src={passwordVisibility ? eyeOn : eyeOff} alt="phone-icon"
+                className="absolute top-[12px] right-[10px] w-[20px] h-[16px] cursor-pointer"
+                onClick={visibilityOnClickHandler}
+              />
+            </div>
+
+            <Button
+              type="submit"
+              variant="primary"
+              onClick={handleSignIn}
+              isLoading={loading}
+              className="text-center flex items-center justify-center"
+            >
+              Next &gt;
+            </Button>
+          </form>
+
+          <div className="md:mt-[30px] mt-[10px] flex items-center justify-center">
+            <p className=" font-medium text-gray-400">
+              Don't have an account yet?
+              <Link to="/sign-up">
+                <span className="text-redSecondary underline"> Sign Up</span>
+              </Link>
+            </p>
+          </div>
+        </section>
       </Container>
-    </Container>
+      }
+    </>
   );
 };
 
