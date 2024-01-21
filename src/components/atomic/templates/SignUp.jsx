@@ -5,7 +5,6 @@ import Auth from "../../../firebase.config";
 import { Navigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { Navigate } from "react-router-dom";
 import { ErrorModal, SuccessModal } from "../molecules/modal/Modal";
 
 // icons/imgs
