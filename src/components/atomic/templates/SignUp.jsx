@@ -1,8 +1,8 @@
 import Button from "../atoms/Button";
 import { Link } from "react-router-dom";
 import Container from "../atoms/Container";
-import Auth from "../../../firebase.config";
 import { Navigate } from "react-router-dom";
+import Auth from "../../../firebase.config";
 import React, { useState, useEffect } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ErrorModal, SuccessModal } from "../molecules/modal/Modal";
@@ -32,7 +32,7 @@ const SignUp = () => {
 
   const [isError, setIsError] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
-  const [isLoggedIn, setIsLggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const [isSuccess, setIsSuccess] = useState(false)
   const [successMessage, setSuccessMessage] = useState("")
@@ -54,7 +54,7 @@ const SignUp = () => {
         if (user) {
           console.log(user);
           setIsSuccess(true)
-          setIsLggedIn(true)
+          setIsLoggedIn(true)
         }
         setLoading(false);
         console.log(user);
@@ -83,37 +83,17 @@ const SignUp = () => {
   };
 
 
-  const inputSchema = [
-    {
-      id: 1,
-      type: "name",
-    },
-    {
-      id: 2,
-      type: "email",
-    },
-    {
-      id: 3,
-      type: "password",
-    },
-    {
-      id: 4,
-      type: "confirmpassword",
-    }
-  ]
-
 
   return (
     <>
-      {isLoggedIn ? <Navigate to="/welcome" /> : <Container variant="flexed" className="md:justify-around relative pt-[7%] w-screen px-[6%]">
-        {/* <ErrorModal>hello world</ErrorModal> */}
+      {isLoggedIn ? <Navigate to="/welcome" /> : <Container variant="flexed" className="md:justify-around relative pt-[7%] max-w-screen px-[6%]">
         {isError &&
           <ErrorModal onClick={() => setIsError(!isError)}>{errorMessage}</ErrorModal>
         }
-        <section className="flex items-center justify-center">
-          <img className="lg:w-[600px] md:w-[450px] w-[400px] lg:h-[600px] object-contain md:ml-0 ml-[60px]" src={getStarted} alt="getStarted" />
+        <section className="flex items-center justify-center lg:w-[600px] md:w-[450px] w-[250px]">
+          <img className="w-full lg:h-[600px] object-contain md:ml-0 ml-[90px]" src={getStarted} alt="getStarted" />
         </section>
-        <section className="md:w-[50%] w-[100%] ">
+        <section className="md:w-[50%] w-[100%]">
           <form onSubmit={handleSignIn}>
             <div className="relative mb-[15px]">
               <input

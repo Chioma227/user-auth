@@ -27,6 +27,7 @@ const SignIn = () => {
   const handleSignIn = (e) => {
     // prevent default browser submit action
     e.preventDefault()
+    setLoading(true)
 
     const auth = Auth;
     signInWithEmailAndPassword(auth, email, password)
@@ -37,6 +38,7 @@ const SignIn = () => {
           setIsModalOpen(true)
           setIsLggedIn(true)
         }
+        setLoading(false)
         console.log(user);
         // ...
       })
@@ -59,8 +61,8 @@ const SignIn = () => {
         {isModalOpen && <SuccessModal>
           <div>Success</div>
         </SuccessModal>}
-        <div className="flex items-center justify-center">
-          <img src={logInSvg} alt="welcome" className="lg:w-[600px] md:w-[450px] w-[400px] lg:h-[600px] object-contain md:ml-0 ml-[60px]" />
+        <div className="flex items-center justify-center lg:w-[600px] md:w-[450px] w-[250px]">
+          <img src={logInSvg} alt="welcome" className="w-full lg:h-[600px] object-contain md:ml-0 ml-[95px]" />
         </div>
 
         <section className="md:w-[50%] w-[100%] ">

@@ -25,8 +25,8 @@ const SuccessModal = ({ children }) => {
 
 const ErrorModal = ({children, onClick}) => {
     return (
-       <main className=" absolute bg-opacity-50 backdrop-blur-[2px] z-10 w-[100%] h-screen">
-         <section role="alert" className=" top-0 absolute rounded border-s-4 border-red-500 bg-red-50 p-4">
+       <main className=" absolute backdrop-blur-[2px] z-10 w-[100%] flex justify-center  h-screen">
+         <section role="alert" className=" top-0 absolute rounded border-s-4 border-red-500 md:w-[30%] w-[90%] bg-red-50 p-4">
             <div className="flex items-center gap-2 text-red-800">
                 <Warn />
                 <strong className="block font-medium"> Something went wrong </strong>
