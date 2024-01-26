@@ -69,7 +69,7 @@ const SignIn = () => {
           <form onSubmit={handleSignIn}>
             <div className="relative mb-[15px]">
               <input
-                className="text-grey w-[100%] indent-[15px] bg-grey bg-opacity-25 placeholder:text-grey py-[10px] rounded-lg"
+                className="text-grey outline-none w-[100%] indent-[15px] bg-grey bg-opacity-25 placeholder:text-grey py-[10px] rounded-lg"
                 type="text"
                 value={email}
                 placeholder="email"
@@ -80,7 +80,7 @@ const SignIn = () => {
 
             <div className="relative mb-[15px]">
               <input
-                className="text-grey w-[100%] indent-[15px] bg-grey bg-opacity-25 placeholder:text-grey py-[10px] rounded-lg"
+                className="text-grey outline-none w-[100%] indent-[15px] bg-grey bg-opacity-25 placeholder:text-grey py-[10px] rounded-lg"
                 type={passwordVisibility ? "text" : "password"}
                 value={password}
                 required

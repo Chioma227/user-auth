@@ -8,7 +8,6 @@ const SuccessModal = ({ children }) => {
                 <span className="text-green-600">
                     <Success />
                 </span>
-
                 <div className="flex-1">
                     <strong className="block font-medium text-gray-900"> Changes saved </strong>
                     <p className="mt-1 text-sm text-gray-700">{children}</p>
@@ -21,7 +20,6 @@ const SuccessModal = ({ children }) => {
         </main>
     )
 }
-
 
 const ErrorModal = ({children, onClick}) => {
     return (

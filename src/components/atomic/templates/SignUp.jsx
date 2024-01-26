@@ -83,7 +83,6 @@ const SignUp = () => {
   };
 
 
-
   return (
     <>
       {isLoggedIn ? <Navigate to="/welcome" /> : <Container variant="flexed" className="md:justify-around relative pt-[7%] max-w-screen px-[6%]">
@@ -97,7 +96,7 @@ const SignUp = () => {
           <form onSubmit={handleSignIn}>
             <div className="relative mb-[15px]">
               <input
-                className="text-grey w-[100%] indent-[15px] bg-grey bg-opacity-25 placeholder:text-grey py-[10px] rounded-lg"
+                className="text-grey outline-none w-[100%] indent-[15px] bg-grey bg-opacity-25 placeholder:text-grey py-[10px] rounded-lg"
                 type="text"
                 value={name}
                 required
@@ -108,7 +107,7 @@ const SignUp = () => {
             </div>
             <div className="relative mb-[15px]">
               <input
-                className="text-grey w-[100%] indent-[15px] bg-grey bg-opacity-25 placeholder:text-grey py-[10px] rounded-lg"
+                className="text-grey w-[100%] outline-none indent-[15px] bg-grey bg-opacity-25 placeholder:text-grey py-[10px] rounded-lg"
                 type="email"
                 required
                 value={email}
@@ -119,7 +118,7 @@ const SignUp = () => {
             </div>
             <div className="relative mb-[15px]">
               <input
-                className="text-grey w-[100%] indent-[15px] bg-grey bg-opacity-25 placeholder:text-grey py-[10px] rounded-lg"
+                className="text-grey w-[100%] outline-none indent-[15px] bg-grey bg-opacity-25 placeholder:text-grey py-[10px] rounded-lg"
                 type="text"
                 value={confirmPassword}
                 required
@@ -130,7 +129,7 @@ const SignUp = () => {
             </div>
             <div className="relative mb-[15px]">
               <input
-                className="text-grey w-[100%] indent-[15px] bg-grey bg-opacity-25 placeholder:text-grey py-[10px] rounded-lg"
+                className="text-grey w-[100%] outline-none indent-[15px] bg-grey bg-opacity-25 placeholder:text-grey py-[10px] rounded-lg"
                 type={passwordVisibility ? "text" : "password"}
                 value={password}
                 required
